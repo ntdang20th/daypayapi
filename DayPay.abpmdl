@@ -1,0 +1,93 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "3.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "8.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "8.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "8.3.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "8.3.3",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "DayPay.Application": {
+      "path": "src/DayPay.Application/DayPay.Application.abppkg",
+      "folder": "src"
+    },
+    "DayPay.Application.Tests": {
+      "path": "test/DayPay.Application.Tests/DayPay.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "DayPay.Domain.Shared": {
+      "path": "src/DayPay.Domain.Shared/DayPay.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "DayPay.Application.Contracts": {
+      "path": "src/DayPay.Application.Contracts/DayPay.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "DayPay.HttpApi": {
+      "path": "src/DayPay.HttpApi/DayPay.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "DayPay.HttpApi.Client": {
+      "path": "src/DayPay.HttpApi.Client/DayPay.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "DayPay.Web": {
+      "path": "src/DayPay.Web/DayPay.Web.abppkg",
+      "folder": "src"
+    },
+    "DayPay.Web.Tests": {
+      "path": "test/DayPay.Web.Tests/DayPay.Web.Tests.abppkg",
+      "folder": "test"
+    },
+    "DayPay.EntityFrameworkCore.Tests": {
+      "path": "test/DayPay.EntityFrameworkCore.Tests/DayPay.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "DayPay.EntityFrameworkCore": {
+      "path": "src/DayPay.EntityFrameworkCore/DayPay.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "DayPay.TestBase": {
+      "path": "test/DayPay.TestBase/DayPay.TestBase.abppkg",
+      "folder": "test"
+    },
+    "DayPay.Domain.Tests": {
+      "path": "test/DayPay.Domain.Tests/DayPay.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "DayPay.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/DayPay.HttpApi.Client.ConsoleTestApp/DayPay.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "DayPay.DbMigrator": {
+      "path": "src/DayPay.DbMigrator/DayPay.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "DayPay.Domain": {
+      "path": "src/DayPay.Domain/DayPay.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

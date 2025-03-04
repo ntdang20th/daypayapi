@@ -1,0 +1,39 @@
+{
+  "id": "daf8a401-6fc5-4a9c-8791-c28ed760506d",
+  "template": "app",
+  "versions": {
+    "AbpFramework": "8.3.3",
+    "AbpStudio": "0.9.5"
+  },
+  "modules": {
+    "DayPay": {
+      "path": "DayPay.abpmdl"
+    }
+  },
+  "runProfiles": {
+    "Default": {
+      "path": "etc/abp-studio/run-profiles/Default.abprun.json"
+    }
+  },
+  "options": {
+    "httpRequests": {
+      "ignoredUrls": [
+        "^/metrics$"
+      ]
+    }
+  },
+  "creatingStudioConfiguration": {
+    "template": "app",
+    "createdAbpStudioVersion": "0.9.5",
+    "tiered": "false",
+    "uiFramework": "mvc",
+    "databaseProvider": "ef",
+    "databaseManagementSystem": "sqlserver",
+    "separateTenantSchema": "false",
+    "theme": "leptonx-lite",
+    "themeStyle": "",
+    "mobileFramework": "none",
+    "publicWebsite": "false",
+    "socialLogin": ""
+  }
+}

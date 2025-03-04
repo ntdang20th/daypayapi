@@ -1,0 +1,13 @@
+﻿{
+  "applications": {
+    "DayPay.Web": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44389",
+      "path": "../../../src/DayPay.Host/DayPay.Host.csproj",
+      "kubernetesService": ".*-web$",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}

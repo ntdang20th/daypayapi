@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--<Import Project="..\..\common.props" />-->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DayPay</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DayPay.Domain.Shared\DayPay.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+		<PackageReference Include="Volo.Abp.Ddd.Domain" Version="8.3.3" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Reopsitories\" />
+  </ItemGroup>
+
+</Project>

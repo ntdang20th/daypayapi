@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--<Import Project="..\..\common.props" />-->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>DayPay</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DayPay.Domain\DayPay.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+		<PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="8.3.3" />
+		<PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="8.3.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+</Project>

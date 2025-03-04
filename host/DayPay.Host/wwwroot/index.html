@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DayPay Notification Hubs Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+</head>
+<body>
+    <h1>DayPay Notification Hubs Test</h1>
+
+    <script>
+        const connection2 = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:44389/daypay/signalr-hubs/notification")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connection2.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--<Import Project=".\..\common.props" />-->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DayPay.Host</RootNamespace>
+	  <LangVersion>preview</LangVersion>
+	  <UserSecretsId>e1c75de7-e894-4638-94cb-3e4384435d96</UserSecretsId>
+	  <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.10.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+		<PackageReference Include="Volo.Abp.Autofac" Version="8.3.3" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="8.3.3" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="8.3.3" />
+		<PackageReference Include="Volo.Abp.Swashbuckle" Version="8.3.3" />
+		<PackageReference Include="Volo.Abp.Http.Client" Version="8.3.3" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DayPay.Application\DayPay.Application.csproj" />
+    <ProjectReference Include="..\..\src\DayPay.HttpApi\DayPay.HttpApi.csproj" />
+    <ProjectReference Include="..\..\src\DayPay.EntityFrameworkCore\DayPay.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MiddleWares\" />
+  </ItemGroup>
+</Project>
