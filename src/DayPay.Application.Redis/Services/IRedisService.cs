@@ -1,4 +1,4 @@
-﻿using DayPay.Dtos;
+﻿using DayPay.Dtos.RedisDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;

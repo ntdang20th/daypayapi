@@ -1,5 +1,5 @@
 ﻿using DayPay.ConnectionFactories;
-using DayPay.Dtos;
+using DayPay.Dtos.RedisDto;
 using Elastic.Apm.StackExchange.Redis;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;

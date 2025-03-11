@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DayPay.Dtos;
+namespace DayPay.Dtos.RedisDto;
 
 public class DayPayRedisDto
 {

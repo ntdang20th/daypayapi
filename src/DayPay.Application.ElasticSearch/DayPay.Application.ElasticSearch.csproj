@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>DayPay</RootNamespace>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DayPay.Application.Contracts\DayPay.Application.Contracts.csproj" />
+    <ProjectReference Include="..\DayPay.Domain\DayPay.Domain.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.17.1" />
+	</ItemGroup>
+</Project>
