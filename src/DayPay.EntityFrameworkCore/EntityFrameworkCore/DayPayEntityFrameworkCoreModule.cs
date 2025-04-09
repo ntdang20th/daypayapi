@@ -11,6 +11,6 @@ namespace DayPay.EntityFrameworkCore;
     )]
 public class DayPayEntityFrameworkCoreModule : AbpModule
 {
-    public override void ConfigureServices(ServiceConfigurationContext context) 
+    public override void ConfigureServices(ServiceConfigurationContext context)
         => _ = context.Services.AddAbpDbContext<DayPayDbContext>(o => o.AddDefaultRepositories(includeAllEntities: true));
 }

@@ -1,13 +1,13 @@
 ﻿using DayPay.Dtos.RedisDto;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
 namespace DayPay.Services;
 
-public class IRedisService<T> : IApplicationService where T : DayPayRedisDto
+public interface IRedisService<T> : IApplicationService where T : DayPayRedisDto
 {
+    Task<IDictionary<string, T>> GetAll(string group);
+
+    Task<bool> SetBulk(string group, IDictionary<string, T> fields);
 }

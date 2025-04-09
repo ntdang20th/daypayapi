@@ -11,9 +11,7 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Serilog;
@@ -45,7 +43,7 @@ public class DayPayHostModule : AbpModule
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
-        
+
         Configure<AbpDbContextOptions>(o => o.UseSqlServer());
         ConfigureAuthentication(context, configuration);
         ConfigureLocalization();

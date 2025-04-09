@@ -1,6 +1,6 @@
 ﻿namespace DayPay.Dtos.ESDto;
 
-public class ESCategoryDto
+public class ESCategoryDto : DayPayESDto
 {
     public string Name { get; set; }
 

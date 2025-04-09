@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace DayPay.Dtos.RedisDto;
+namespace DayPay.Dtos.DayPayDto;
 
-public class DayPayRedisDto
+public class DomainDto
 {
     public Guid Id { get; set; }
 

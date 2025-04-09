@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DayPay.Application.ElasticSearch\DayPay.Application.ElasticSearch.csproj" />
+    <ProjectReference Include="..\DayPay.Application.Redis\DayPay.Application.Redis.csproj" />
     <ProjectReference Include="..\DayPay.Domain\DayPay.Domain.csproj" />
     <ProjectReference Include="..\DayPay.Application.Contracts\DayPay.Application.Contracts.csproj" />
   </ItemGroup>

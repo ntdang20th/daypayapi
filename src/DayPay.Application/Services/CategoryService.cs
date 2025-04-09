@@ -1,7 +1,9 @@
-﻿using DayPay.Entities;
+﻿using DayPay.Dtos.DayPayDto;
+using DayPay.Entities;
 using DayPay.Requests;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
@@ -45,9 +47,23 @@ public class CategoryService(
 
             return categoryId;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex, "CategoryService-AddCategory-Exception: {Request}", request.ToString());
+
+            throw;
+        }
+    }
+
+    public async ValueTask<IEnumerable<CategoryDto>> GetCategoriesAsync()
+    {
+        try
+        {
+            return ObjectMapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(await _categoryRepository.GetListAsync());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "CategoryService-GetCategoriesAsync-Exception:");
 
             throw;
         }
