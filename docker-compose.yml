@@ -10,8 +10,6 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    volumes:
-      - ./logs:/app/logs 
     depends_on:
       - sqlserver 
 
@@ -22,8 +20,4 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
-    volumes:
-      - sql_data:/var/opt/mssql
 
-volumes:
-  sql_data:
