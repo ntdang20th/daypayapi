@@ -1,13 +1,15 @@
+# Base image for runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 5000
-
-ENV ASPNETCORE_URLS=http://+:5000
-
+# Create non-root user
+RUN adduser --disabled-password --gecos '' app
 USER app
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG configuration=Release
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
 
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 COPY ["host/DayPay.Host/DayPay.Host.csproj", "host/DayPay.Host/"]
@@ -20,22 +22,23 @@ COPY ["src/DayPay.Domain.Shared/DayPay.Domain.Shared.csproj", "src/DayPay.Domain
 COPY ["src/DayPay.EntityFrameworkCore/DayPay.EntityFrameworkCore.csproj", "src/DayPay.EntityFrameworkCore/"]
 COPY ["src/DayPay.HttpApi/DayPay.HttpApi.csproj", "src/DayPay.HttpApi/"]
 
-
+# Restore dependencies
 RUN dotnet restore "host/DayPay.Host/DayPay.Host.csproj"
+
+# Copy all source files
 COPY . .
 
+# Build app
 WORKDIR "/src/host/DayPay.Host"
+RUN dotnet build "DayPay.Host.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-RUN dotnet build "DayPay.Host.csproj" -c $configuration -o /app/build
-
+# Publish app
 FROM build AS publish
-ARG configuration=Release
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "DayPay.Host.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-RUN dotnet publish "DayPay.Host.csproj" -c $configuration -o /app/publish /p:UseAppHost=false
-
+# Final runtime image
 FROM base AS final
-
 WORKDIR /app
-
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "DayPay.Host.dll"]
