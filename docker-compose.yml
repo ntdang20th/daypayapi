@@ -7,5 +7,23 @@ services:
       dockerfile: host/DayPay.Host/Dockerfile
     ports:
       - "8081:8081"
+      - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./logs:/app/logs 
+    depends_on:
+      - sqlserver 
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "P@ssword1234"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:
