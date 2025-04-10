@@ -47,39 +47,8 @@ public class DayPayHostModule : AbpModule
         Configure<AbpDbContextOptions>(o => o.UseSqlServer());
         ConfigureAuthentication(context, configuration);
         ConfigureLocalization();
-        //ConfigureCors(context, configuration);
         _ = context.Services.AddCors(o => o.AddPolicy("Default", b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
         ConfigureSwaggerServices(context, configuration);
-
-        ConfigureOpenTelemetry(context, configuration);
-    }
-
-    private static void ConfigureOpenTelemetry(ServiceConfigurationContext context, IConfiguration configuration)
-    {
-        var tracingExporter = configuration.GetValue("Logging:OpenTelemetry:UseTracingExporter", "console")!.ToLowerInvariant();
-        var logExporter = configuration.GetValue("Logging:OpenTelemetry:UseLogExporter", "console")!.ToLowerInvariant();
-        var serviceName = configuration.GetValue("Logging:OpenTelemetry:ServiceName", "DayPay_Log");
-        var otlpEndpoint = configuration.GetValue("Logging:OpenTelemetry:Otlp:Endpoint", "http://localhost:4317");
-
-        _ = context.Services.AddOpenTelemetry()
-            .ConfigureResource(r => r.AddService(
-                serviceName: serviceName,
-                serviceVersion: typeof(Program).Assembly.GetName().Version?.ToString() ?? "unknown",
-                serviceInstanceId: Environment.MachineName))
-            .WithLogging(logging =>
-            {
-                switch (logExporter)
-                {
-                    case "otlp":
-                        logging.AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint));
-
-                        break;
-                    default:
-
-                        logging.AddConsoleExporter();
-                        break;
-                }
-            });
     }
 
     private static void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
@@ -94,18 +63,6 @@ public class DayPayHostModule : AbpModule
         o.Languages.Add(new LanguageInfo("en", "en", "English"));
         o.Languages.Add(new LanguageInfo("vi", "vi", "Tiếng Việt"));
     });
-
-    private static void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
-        => context.Services.AddCors(s => s.AddDefaultPolicy(b => b
-                                .WithOrigins(configuration["App:CorsOrigins"]
-                                    .Split(",", RemoveEmptyEntries)
-                                    .Select(o => o
-                                        .RemovePostFix("/")).ToArray())
-                                        .WithAbpExposedHeaders()
-                                        .SetIsOriginAllowedToAllowWildcardSubdomains()
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod()
-                                        .AllowCredentials()));
 
     private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
     {
