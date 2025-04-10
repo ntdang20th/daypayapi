@@ -10,3 +10,60 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    deploy: 
+      replicas: 2
+      placement:
+        constraints:
+          - node.hostname != worker2
+      restart_policy:
+        condition: on-failure
+    networks:
+      - backend
+    
+  redis:
+    image: redis:7
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == worker2
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == worker2
+    networks:
+      - backend
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == worker2
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - backend
+volumes:
+  redis_data:
+  es_data:
+  sql_data:
+
+networks:
+  backend:
