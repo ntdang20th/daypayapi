@@ -8,7 +8,6 @@ receivers:
 exporters:
   elasticsearch:
     endpoints: [ "http://elasticsearch:9200" ]
-    index: "otel-logs"
 
 service:
   pipelines:
