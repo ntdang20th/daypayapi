@@ -1,0 +1,20 @@
+name: Docker Image CI for GHCR
+
+on: push
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to GitHub Container Registry
+      run: docker login --username ntdang20th --password ${{secrets.GH_PAT}} ghcr.io
+
+    - name: Build the image
+      run: docker build . --tag ghcr.io/ntdang20th/daypayapi:latest
+
+    - name: Push the image
+      run: docker push ghcr.io/ntdang20th/daypayapi:latest
