@@ -56,37 +56,30 @@ public class DayPayHostModule : AbpModule
 
     private static void ConfigureOpenTelemetry(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        // Note: Switch between Zipkin/OTLP/Console by setting UseTracingExporter in appsettings.json.
-        var tracingExporter = configuration.GetValue("Logging:Logging:OpenTelemetry:UseTracingExporter", defaultValue: "console")!.ToLowerInvariant();
-
-        // Note: Switch between Prometheus/OTLP/Console by setting UseMetricsExporter in appsettings.json.
-        var metricsExporter = configuration.GetValue("Logging:OpenTelemetry:UseMetricsExporter", defaultValue: "console")!.ToLowerInvariant();
-
-        // Note: Switch between Console/OTLP by setting UseLogExporter in appsettings.json.
-        var logExporter = configuration.GetValue("Logging:OpenTelemetry:UseLogExporter", defaultValue: "console")!.ToLowerInvariant();
-
-        // Note: Switch between Explicit/Exponential by setting HistogramAggregation in appsettings.json
-        var histogramAggregation = configuration.GetValue("Logging:OpenTelemetry:HistogramAggregation", defaultValue: "explicit")!.ToLowerInvariant();
+        var tracingExporter = configuration.GetValue("Logging:OpenTelemetry:UseTracingExporter", "console")!.ToLowerInvariant();
+        var logExporter = configuration.GetValue("Logging:OpenTelemetry:UseLogExporter", "console")!.ToLowerInvariant();
+        var serviceName = configuration.GetValue("Logging:OpenTelemetry:ServiceName", "DayPay_Log");
+        var otlpEndpoint = configuration.GetValue("Logging:OpenTelemetry:Otlp:Endpoint", "http://localhost:4317");
 
         _ = context.Services.AddOpenTelemetry()
             .ConfigureResource(r => r.AddService(
-                serviceName: configuration.GetValue("Logging:OpenTelemetry:ServiceName", defaultValue: "DayPay_Log"),
-                serviceVersion: typeof(Program).Assembly.GetName().Version?.ToString() ?? "unknow",
+                serviceName: serviceName,
+                serviceVersion: typeof(Program).Assembly.GetName().Version?.ToString() ?? "unknown",
                 serviceInstanceId: Environment.MachineName))
-            .WithLogging(l =>
+            .WithLogging(logging =>
             {
                 switch (logExporter)
                 {
                     case "otlp":
-                        l.AddOtlpExporter(option => option.Endpoint = new Uri(configuration.GetValue("Logging:OpenTelemetry:Otlp:Endpoint", defaultValue: "http://localhost:4317")!));
+                        logging.AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint));
+
                         break;
                     default:
-                        l.AddConsoleExporter();
+
+                        logging.AddConsoleExporter();
                         break;
                 }
             });
-
-        _ = context.Services.AddLogging(x => x.AddOpenTelemetry(d => d.AddOtlpExporter()));
     }
 
     private static void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
