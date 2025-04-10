@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   daypayhost:
+    image: daypayapi
     build:
       context: .
       dockerfile: host/DayPay.Host/Dockerfile
